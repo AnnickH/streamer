@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
-    @Autowired //cable automatiquement notre service et (injection de dépendance)
-    private JpaRepository repositor; // je peux l'utilisé car l'interface etends JpaRepository
+//    @Autowired //cable automatiquement notre service et (injection de dépendance)
+//    private JpaRepository repositor; // je peux l'utilisé car l'interface etends JpaRepository
     @Autowired
     private StudentRepository repository;
     public List<SimpleStudentProjection> fromProjection() {
