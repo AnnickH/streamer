@@ -16,7 +16,7 @@ import java.util.List;
 public class CourseController {
     @Autowired
     private CourseService service;
-    @GetMapping // associer une method a un verb et a une uri
+    @GetMapping // associer une method a un verb et a une uri (GET)
     @CrossOrigin
     public List<FullCourseDto> findAll() {
        return service.findAll();

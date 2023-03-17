@@ -19,13 +19,14 @@ public class CourseServiceImpl implements CourseService<Course>{
                 .stream()
                 .map(c ->{
                     FullCourseDto fullCourseDto = new FullCourseDto(); // creer un instante de FullCourseDto
+
                     fullCourseDto.setId(c.getId());
                     fullCourseDto.setTitle(c.getTitle());
                     fullCourseDto.setCreatedAt(c.getCreatedAt());
                     fullCourseDto.setUpdatedAt(c.getUpdatedAt());
                     var modules = c.getModules();
                     // Make as many ModuleDto as needed
-                    for(var module : modules) { //for of => java obligé de type
+                    for(var module : modules) { //for of => java obligé de type donc var
                         var moduleDto = new ModuleDto();
                         fullCourseDto.addModule(module);
                     }
