@@ -1,9 +1,12 @@
 package fr.aelion.streamer.controllers;
 
+import fr.aelion.streamer.dto.AddStudentDto;
 import fr.aelion.streamer.dto.SimpleStudentDto;
 import fr.aelion.streamer.dto.SimpleStudentProjection;
 import fr.aelion.streamer.entities.Student;
 import fr.aelion.streamer.services.StudentService;
+import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,10 @@ import java.util.List;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
+
+
+
     @GetMapping // http://localhost:8080/api/v1/students on va retourner ici
     @CrossOrigin
     public List<Student> findAll(){
@@ -32,7 +39,7 @@ public class StudentController {
     }
     @CrossOrigin
     @GetMapping("dto")
-    public List<SimpleStudentDto> simpleStudentDtos() {
+    public List<SimpleStudentDto> simpleStudentDto() {
         return studentService.findSimpleStudents();
     }
 
@@ -46,14 +53,13 @@ public class StudentController {
      */
     @PostMapping // post =
     @CrossOrigin
-    public ResponseEntity<?> add(@RequestBody Student student) {
+    public ResponseEntity<?> add(@Valid @RequestBody AddStudentDto student) { // Student student => AddStudentDto
         try {
             Student newStudent = studentService.add(student);
             return ResponseEntity.created(null).body(newStudent);
         } catch(Exception e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
-
     }
     //public ResponseEntity<?> add(@RequestBody Student student){
     //    return ResponseEntity.created(null).body(studentService.add(student));
