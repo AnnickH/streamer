@@ -69,6 +69,19 @@ public class StudentService {
         return newStudent;
     }
 
+    public Student findOne(int id) {
+        return repository.findById(id)
+                .map(s ->s)
+                .orElseThrow();
+    }
+
+    public void update(Student student) throws Exception {
+       try {
+           repository.save(student);
+       } catch (Exception e) {
+           throw new Exception("Something went wrong while updating Student");
+       }
+    }
    /* public Student add(AddStudentDto student) throws Exception { // Student => AddStudentDto
 
         Student anyStudent = repository.findByEmail(student.getEmail());
