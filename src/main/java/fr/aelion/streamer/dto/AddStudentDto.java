@@ -18,9 +18,11 @@ public class AddStudentDto {
     private String phoneNumber;
 
     @NotBlank
+    @Min(8)
     private String login;
 
     @NotBlank
+    @Min(8) //minimum 8 caractère
     //@Pattern(regexp = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/")
     private String password;
 }
