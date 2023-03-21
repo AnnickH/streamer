@@ -34,6 +34,11 @@ public class StudentController {
         return studentService.findAll();
     }
 
+    @GetMapping("{id}") // Get http://127.0.0.1:5000/api/v1/students/1
+    public ResponseEntity<?> findOne(@PathVariable int id) {
+        return ResponseEntity.ok("Have to find a Student with id: " + id);
+    }
+
     @GetMapping("simple")
     @CrossOrigin
     public List<SimpleStudentProjection> findSimpleStudents() {
