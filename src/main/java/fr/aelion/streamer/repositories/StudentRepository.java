@@ -10,9 +10,10 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Integer> {
     public Student findByEmail(String email);
-
     @Query("SELECT s.id id, s.lastName lastName, s.firstName firstName, s.email email FROM Student s")
     public List<SimpleStudentProjection> getSimpleStudents();
+
+    public Student findByLogin(String login);
 
     @Query("SELECT s FROM Student s WHERE email = :email OR login = :login")
     public Student findByEmailOrLogin(@Param("email") String email, @Param("login") String login);

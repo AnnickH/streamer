@@ -5,6 +5,8 @@ import fr.aelion.streamer.dto.SimpleStudentDto;
 import fr.aelion.streamer.dto.SimpleStudentProjection;
 import fr.aelion.streamer.entities.Student;
 import fr.aelion.streamer.repositories.StudentRepository;
+import fr.aelion.streamer.services.exceptions.EmailAlreadyExistsException;
+import fr.aelion.streamer.services.exceptions.LoginAlreadyExistsException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -51,7 +53,23 @@ public class StudentService {
                   .collect(Collectors.toList());
       }
 
-    public Student add(AddStudentDto student) throws Exception { // Student => AddStudentDto
+    public Student add(AddStudentDto student) throws Exception {
+
+        Student anyStudent = repository.findByEmail(student.getEmail());
+        if (anyStudent != null) {
+            throw new EmailAlreadyExistsException("Email " + student.getEmail() + " already exists");
+        }
+        anyStudent = repository.findByEmail(student.getLogin());
+        if (anyStudent != null) {
+            throw new LoginAlreadyExistsException("Login " + student.getLogin() + " already exists");
+        }
+        Student newStudent = modelMapper.map(student, Student.class);
+        newStudent = (Student) repository.save(newStudent);
+
+        return newStudent;
+    }
+
+   /* public Student add(AddStudentDto student) throws Exception { // Student => AddStudentDto
 
         Student anyStudent = repository.findByEmail(student.getEmail());
         // if email was already created: we can't use this email
@@ -62,7 +80,7 @@ public class StudentService {
         newStudent = (Student) repository.save(newStudent);
 
         return newStudent;
-    }
+    }*/
 
     //public Student add(Student student){
     //    student = (Student) repository.save(student);

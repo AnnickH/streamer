@@ -5,6 +5,8 @@ import fr.aelion.streamer.dto.SimpleStudentDto;
 import fr.aelion.streamer.dto.SimpleStudentProjection;
 import fr.aelion.streamer.entities.Student;
 import fr.aelion.streamer.services.StudentService;
+import fr.aelion.streamer.services.exceptions.EmailAlreadyExistsException;
+import fr.aelion.streamer.services.exceptions.LoginAlreadyExistsException;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,13 +54,17 @@ public class StudentController {
      * @return
      */
     @PostMapping // post =
-    @CrossOrigin
-    public ResponseEntity<?> add(@Valid @RequestBody AddStudentDto student) { // Student student => AddStudentDto
+    @CrossOrigin // Plus besoin de le mettre vu qu'on a CorsCongigurationn qui nous donne la possibilité de l'enlever
+    public ResponseEntity<?> add(@Valid @RequestBody AddStudentDto student) {
         try {
             Student newStudent = studentService.add(student);
             return ResponseEntity.created(null).body(newStudent);
-        } catch(Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        } catch(EmailAlreadyExistsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.reject());
+        } catch (LoginAlreadyExistsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body((e.reject()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
     //public ResponseEntity<?> add(@RequestBody Student student){
