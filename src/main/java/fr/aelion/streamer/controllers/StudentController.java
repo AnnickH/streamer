@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 @RestController
 @RequestMapping("api/v1/students")   // Tout ce qu'on va mettre dans notre controller sera visible:
@@ -90,6 +91,26 @@ public class StudentController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<?> singleDelete(@PathVariable int id) {
+        try {
+            studentService.delete(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping()
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> multipleDelete(@RequestBody Set<Integer> ids) {
+        return ResponseEntity.ok(studentService.multipleDelete(ids));
+    }
+
+
     //public ResponseEntity<?> add(@RequestBody Student student){
     //    return ResponseEntity.created(null).body(studentService.add(student));
         //return ResponseEntity.created(null).build();  //created http
