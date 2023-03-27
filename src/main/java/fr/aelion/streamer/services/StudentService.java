@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -69,6 +72,69 @@ public class StudentService {
         return newStudent;
     }
 
+    public Student findOne(int id) {
+        return repository.findById(id)
+                .map(s ->s)
+                .orElseThrow();
+    }
+
+    public void update(Student student) throws Exception {
+       try {
+           repository.save(student);
+       } catch (Exception e) {
+           throw new Exception("Something went wrong while updating Student");
+       }
+    }
+
+    public void delete(int id) {
+        try {
+            var student = this.findOne(id);
+            repository.delete(student);
+        } catch (NoSuchElementException e) {
+            throw e;
+        }
+    }
+
+    public Set<Integer> multipleDelete(Set<Integer> ids) {
+        var nonDeletedIds = new HashSet<Integer>();
+        ids.stream()
+                .forEach(i -> {
+                    try {
+                        repository.delete(this.findOne(i));
+                    } catch(NoSuchElementException e) {
+                        nonDeletedIds.add(i);
+                    } catch (Exception e) {
+                        nonDeletedIds.add(i);
+                    }
+                });
+        return nonDeletedIds;
+    }
+
+
+    /*public void delete (int id) {
+        try {
+            var student = this.findOne(id);
+            repository.delete(student);
+        } catch (NoSuchElementException e){
+            throw e;
+        }
+    }
+
+
+    public Set<Integer> multipleDelete(Set<Integer> ids) {
+        var nonDeletedIds = new HashSet<Integer>();
+        ids.stream()
+                .forEach(i ->{
+                    try {
+                        repository.delete(this.findOne(i));
+                    }catch (NoSuchElementException e) {
+                        nonDeletedIds.add(i);
+                    }catch (Exception e) {
+                        nonDeletedIds.add(i);
+                    }
+                });
+        return nonDeletedIds;
+    }*/
    /* public Student add(AddStudentDto student) throws Exception { // Student => AddStudentDto
 
         Student anyStudent = repository.findByEmail(student.getEmail());
