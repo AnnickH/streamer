@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -23,4 +25,7 @@ public class Module {
     @ManyToOne
     @JoinColumn(name="course_id")
     private Course course;
+
+    @OneToMany(mappedBy = "module") // pour un cours donnée => j'ai plusieurs module
+    private Set<Media> medias;
 }
