@@ -27,18 +27,27 @@ public class FullMediaDto {
 
     private String url;
 
-    private Set<Typemedia> typemedia = new HashSet<>();
-    private Set<ModuleDto> modules = new HashSet<>();
+    private Typemedia typemedia;
 
-    public void addModule(Module module){
-        var moduleDto = new ModuleDto();
-        moduleDto.setId(module.getId());
-        moduleDto.setName(module.getName());
-        moduleDto.setObjective(module.getObjective());
-
-        this.modules.add(moduleDto);
-
-    }
+//    private Set<TypemediaDto> typemedias = new HashSet<>();
+//
+//    public void addTypemedia(Typemedia typemedia){
+//        var typemediaDto = new TypemediaDto();
+//        typemediaDto.setId(typemedia.getId());
+//        typemediaDto.setTitle(typemedia.getTitle());
+//
+//        this.typemedias.add(typemediaDto);
+//    }
+//    private Set<ModuleDto> modules = new HashSet<>();
+//
+//    public void addModule(Module module){
+//        var moduleDto = new ModuleDto();
+//        moduleDto.setId(module.getId());
+//        moduleDto.setName(module.getName());
+//        moduleDto.setObjective(module.getObjective());
+//
+//        this.modules.add(moduleDto);
+//    }
 
 
 }

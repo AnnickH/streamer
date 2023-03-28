@@ -14,14 +14,19 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column
     private String summary;
 
+    @Column
     private int duration;
 
+    @Column
     private LocalDate  createdAt;
 
+    @Column
     private String url;
 
     @ManyToOne

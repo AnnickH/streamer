@@ -1,6 +1,7 @@
 package fr.aelion.streamer.dto;
 
 import fr.aelion.streamer.entities.Course;
+import fr.aelion.streamer.entities.Media;
 import fr.aelion.streamer.entities.Module;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +28,13 @@ public class FullCourseDto {
         moduleDto.setId(module.getId());
         moduleDto.setName(module.getName());
         moduleDto.setObjective(module.getObjective());
+        var medias = module.getMedias();
+        for(var media : medias) { //for of => java obligé de type donc var
+            var fullMediaDto = new FullMediaDto();
+            moduleDto.addMedia(media);
+        }
 
         this.modules.add(moduleDto);
     }
+
 }

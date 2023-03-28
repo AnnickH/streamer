@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MediaService<Media> {
+public class MediaService {
     @Autowired
     private MediaRepository repository;
 
@@ -23,7 +23,7 @@ public class MediaService<Media> {
         return repository.getSimpleMedias();
     }
 
-    public List<fr.aelion.streamer.entities.Media> findAll() {
+    public List<Media> findAll() {
         List<fr.aelion.streamer.entities.Media> medias = repository.findAll();
         return medias;
     }

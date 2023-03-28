@@ -15,12 +15,12 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/medias")
 public class MediaController {
-    @Autowired
-    private MediaService service;
-
-    @GetMapping
-    @CrossOrigin
-    public List<FullMediaDto> findAll(){
-        return service.findAll();
-    }
+//    @Autowired
+//    private MediaService service;
+//
+//    @GetMapping
+//    @CrossOrigin
+//    public List<FullMediaDto> findAll(){
+//        return service.findAll();
+//    }
 }
