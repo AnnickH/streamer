@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -24,7 +26,9 @@ public class Course {
     //@Column(name = "title", unique = true)
     // on utilise @Columun au cas ou une appelation diffère , a un intérêt si il a une condition particulière
     private String title;
+    @CreationTimestamp
     private LocalDate createdAt;
+    @UpdateTimestamp
     private LocalDate updatedAt; // spring fait la connexion automatique de camelCase en snake_case
     private String objective;
 
