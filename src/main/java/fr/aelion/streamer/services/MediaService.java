@@ -24,7 +24,7 @@ public class MediaService {
     }
 
     public List<Media> findAll() {
-        List<fr.aelion.streamer.entities.Media> medias = repository.findAll();
+        List<Media> medias = repository.findAll();
         return medias;
     }
 }
