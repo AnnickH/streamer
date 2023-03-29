@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-
+//au plus près de la base de donnée en requete
 public interface StudentRepository extends JpaRepository<Student, Integer> {
     public Student findByEmail(String email);
     @Query("SELECT s.id id, s.lastName lastName, s.firstName firstName, s.email email FROM Student s")

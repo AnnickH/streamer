@@ -66,7 +66,7 @@ public class StudentController {
      * @param student
      * @return
      */
-    @PostMapping // post =
+    @PostMapping // post = recupere les requetes de types Post
     @CrossOrigin // Plus besoin de le mettre vu qu'on a CorsCongigurationn qui nous donne la possibilité de l'enlever
     public ResponseEntity<?> add(@Valid @RequestBody AddStudentDto student) {
         try {

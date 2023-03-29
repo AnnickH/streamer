@@ -85,7 +85,7 @@ public class StudentService {
            throw new Exception("Something went wrong while updating Student");
        }
     }
-
+//service fait ce que demande le controller (sert a faire la methode)
     public void delete(int id) {
         try {
             var student = this.findOne(id);
