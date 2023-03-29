@@ -35,6 +35,16 @@ public class CourseController {
         }
     }
 
+    @PutMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<?> update(@RequestBody Course course) {
+        try {
+            courseService.update(course);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
    /* @GetMapping("/{id}")
    @ResponseStatus(HttpStatus.OK)
