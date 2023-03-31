@@ -34,7 +34,7 @@ public class Media {
     private Typemedia typemedia;
 
     @ManyToOne
-    @JoinColumn(name = "module_id")
+    @JoinColumn(name = "module_id", nullable = true)
     private Module module;
 
 }
