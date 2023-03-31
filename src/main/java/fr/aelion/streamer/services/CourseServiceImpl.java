@@ -21,6 +21,8 @@ public class CourseServiceImpl implements CourseService<Course>{
     @Autowired
     private ModelMapper modelMapper;
 
+
+
     public List<FullCourseDto> findAll(){
         return repository.findAll()
                 .stream()
@@ -59,4 +61,12 @@ public class CourseServiceImpl implements CourseService<Course>{
         }
     }
 
+//    public FullCourseDto findOne(int id) {
+//
+//        return repository.findById(id).map((c) -> {
+//            var fullCourseDto = modelMapper.map(c), fullCourseDto.class);
+//            return fullCourseDto
+//                }
+//
+//    }
 }
