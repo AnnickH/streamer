@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service // sans ça on ne peut pas instancier automatiquement, autowired => injection de dépendance
@@ -44,6 +45,12 @@ public class CourseServiceImpl implements CourseService<Course>{
                 .collect(Collectors.toList());
     }
 
+    public Course findOne(int id) {
+        return repository.findById(id)
+                .map(c -> c)
+                .orElseThrow();
+    }
+
     public Course add(AddCourse course) throws Exception{
         if(course.getTitle() == null){
             throw new Exception("Title cannot be empty");
@@ -58,6 +65,15 @@ public class CourseServiceImpl implements CourseService<Course>{
             repository.save(course);
         } catch (Exception e) {
             throw new Exception("Something went wrong while updating Course");
+        }
+    }
+
+    public void delete(int id) {
+        try {
+            var course = this.findOne(id);
+            repository.delete(course);
+        } catch (NoSuchElementException e) {
+            throw e;
         }
     }
 

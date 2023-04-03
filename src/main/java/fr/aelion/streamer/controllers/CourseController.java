@@ -22,6 +22,15 @@ public class CourseController {
     @Autowired
     private MediaRepository mediaRepository;
 
+    @GetMapping("{id}")
+    public ResponseEntity<?> findOne(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok(courseService.findOne(id));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping // associer une method a un verb et a une uri (GET)
     @CrossOrigin
     public List findAll() {
@@ -50,20 +59,21 @@ public class CourseController {
         }
     }
 
-//    @GetMapping("/{id]")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ResponseEntity<?> findOne(@PathVariable() int id) {
-//        try {
-//            return ResponseEntity.ok(courseService.findOne(id));
-//        } catch (NoSuchElementException e) {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> singleDelete(@PathVariable() int id) {
+        try {
+            courseService.delete(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
-  @DeleteMapping("/{id]")
-    public ResponseEntity<?> remove(@PathVariable() int id) {
-        return null;
-  }
+//  @DeleteMapping("/{id}")
+//    public ResponseEntity<?> remove(@PathVariable() int id) {
+//        return null;
+//  }
 
    /* @GetMapping("/{id}")
    @ResponseStatus(HttpStatus.OK)
